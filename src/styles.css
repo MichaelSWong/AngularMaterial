@@ -7,3 +7,10 @@ mat-tab-group {
 mat-tab-group p {
   padding-top: 20px;
 }
+
+/* for sidenav to take a whole page */
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
