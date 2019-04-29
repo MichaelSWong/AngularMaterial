@@ -2,6 +2,7 @@ import { RepositoryService } from "./../../shared/repository.service";
 import { Component, OnInit, ViewChild, AfterViewInit } from "@angular/core";
 import { Owner } from "../../_interface/owner.model";
 import { ErrorHandlerService } from "../../shared/error-handler.service";
+import { Router } from "@angular/router";
 
 // Material
 import { MatTableDataSource, MatSort, MatPaginator } from "@angular/material";
@@ -28,7 +29,8 @@ export class OwnerListComponent implements OnInit, AfterViewInit {
 
   constructor(
     private repoService: RepositoryService,
-    private errorService: ErrorHandlerService
+    private errorService: ErrorHandlerService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -51,7 +53,10 @@ export class OwnerListComponent implements OnInit, AfterViewInit {
     );
   };
 
-  public redirectToDetails = (id: string) => {};
+  public redirectToDetails = (id: string) => {
+    let url: string = `/owner/details/${id}`;
+    this.router.navigate([url]);
+  };
 
   public redirectToUpdate = (id: string) => {};
 
