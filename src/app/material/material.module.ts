@@ -13,7 +13,9 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatPaginatorModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatCheckboxModule,
+  MatProgressSpinnerModule
 } from "@angular/material";
 
 @NgModule({
@@ -32,7 +34,9 @@ import {
     MatFormFieldModule,
     MatInputModule,
     MatPaginatorModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatCheckboxModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     MatTabsModule,
@@ -47,7 +51,9 @@ import {
     MatFormFieldModule,
     MatInputModule,
     MatPaginatorModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatCheckboxModule,
+    MatProgressSpinnerModule
   ]
 })
 export class MaterialModule {}
