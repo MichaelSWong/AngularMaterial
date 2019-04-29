@@ -1,7 +1,9 @@
 import { RepositoryService } from "./../../shared/repository.service";
 import { Component, OnInit, ViewChild, AfterViewInit } from "@angular/core";
-import { MatTableDataSource, MatSort } from "@angular/material";
 import { Owner } from "../../_interface/owner.model";
+
+// Material
+import { MatTableDataSource, MatSort, MatPaginator } from "@angular/material";
 
 @Component({
   selector: "app-owner-list",
@@ -21,6 +23,7 @@ export class OwnerListComponent implements OnInit, AfterViewInit {
   public dataSource = new MatTableDataSource<Owner>();
 
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private repoService: RepositoryService) {}
 
@@ -30,6 +33,7 @@ export class OwnerListComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   public getAllOwners = () => {
