@@ -2,25 +2,28 @@ import { RepositoryService } from "./../../shared/repository.service";
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Location } from "@angular/common";
-import { OwnerForCreation } from "../../_interface/ownerForCreation.model";
 import { MatDialog } from "@angular/material";
 import { SuccessDialogComponent } from "../../shared/dialogs/success-dialog/success-dialog.component";
 import { ErrorHandlerService } from "../../shared/error-handler.service";
+import { ActivatedRoute } from "@angular/router";
+import { Owner } from "../../_interface/owner.model";
 
 @Component({
-  selector: "app-owner-create",
-  templateUrl: "./owner-create.component.html",
-  styleUrls: ["./owner-create.component.css"]
+  selector: "app-owner-update",
+  templateUrl: "./owner-update.component.html",
+  styleUrls: ["./owner-update.component.css"]
 })
-export class OwnerCreateComponent implements OnInit {
+export class OwnerUpdateComponent implements OnInit {
   public ownerForm: FormGroup;
   private dialogConfig;
+  public owner: Owner;
 
   constructor(
     private location: Location,
     private repository: RepositoryService,
     private dialog: MatDialog,
-    private errorService: ErrorHandlerService
+    private errorService: ErrorHandlerService,
+    private activeRoute: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -42,6 +45,8 @@ export class OwnerCreateComponent implements OnInit {
       disableClose: true,
       data: {}
     };
+
+    this.getOwnerById();
   }
 
   public hasError = (controlName: string, errorName: string) => {
@@ -52,34 +57,48 @@ export class OwnerCreateComponent implements OnInit {
     this.location.back();
   };
 
-  public createOwner = ownerFormValue => {
+  private getOwnerById = () => {
+    let ownerId: string = this.activeRoute.snapshot.params["id"];
+
+    let ownerByIdUrl: string = `api/owner/${ownerId}`;
+
+    this.repository.getData(ownerByIdUrl).subscribe(
+      res => {
+        this.owner = res as Owner;
+        this.ownerForm.patchValue(this.owner);
+      },
+      error => {
+        this.errorService.dialogConfig = this.dialogConfig;
+        this.errorService.handleError(error);
+      }
+    );
+  };
+
+  public updateOwner = ownerFormValue => {
     if (this.ownerForm.valid) {
-      this.executeOwnerCreation(ownerFormValue);
+      this.executeOwnerUpdate(ownerFormValue);
     }
   };
 
-  private executeOwnerCreation = ownerFormValue => {
-    let owner: OwnerForCreation = {
-      name: ownerFormValue.name,
-      dateOfBirth: ownerFormValue.dateOfBirth,
-      address: ownerFormValue.address
-    };
+  private executeOwnerUpdate = ownerFormValue => {
+    this.owner.name = ownerFormValue.name;
+    this.owner.dateOfBirth = ownerFormValue.dateOfBirth;
+    this.owner.address = ownerFormValue.address;
 
-    let apiUrl = "api/owner";
-    this.repository.create(apiUrl, owner).subscribe(
+    let apiUrl = `api/owner/${this.owner.id}`;
+    this.repository.update(apiUrl, this.owner).subscribe(
       res => {
         let dialogRef = this.dialog.open(
           SuccessDialogComponent,
           this.dialogConfig
         );
 
-        //we are subscribing on the [mat-dialog-close] attribute as soon as we click on the dialog button
         dialogRef.afterClosed().subscribe(result => {
           this.location.back();
         });
       },
       error => {
-        this.errorService.dialogConfig = { ...this.dialogConfig };
+        this.errorService.dialogConfig = this.dialogConfig;
         this.errorService.handleError(error);
       }
     );

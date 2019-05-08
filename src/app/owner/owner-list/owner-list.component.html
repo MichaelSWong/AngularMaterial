@@ -5,7 +5,7 @@
   fxLayoutGap.gt-sm="250px"
   fxLayoutGap.lt.md="20px"
 >
-  <mat-form-field fxFlex="40%">
+  <mat-form-field>
     <input
       matInput
       type="text"
@@ -19,12 +19,7 @@
     >
   </div>
 </div>
-<table
-  mat-table
-  [dataSource]="dataSource"
-  matSort
-  (matSortChange)="customSort($event)"
->
+<table mat-table [dataSource]="dataSource" matSort>
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
     <td mat-cell *matCellDef="let element">{{ element.name }}</td>
