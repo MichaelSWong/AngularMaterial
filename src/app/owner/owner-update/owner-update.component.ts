@@ -4,9 +4,9 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Location } from "@angular/common";
 import { MatDialog } from "@angular/material";
 import { SuccessDialogComponent } from "../../shared/dialogs/success-dialog/success-dialog.component";
+import { Owner } from "../../_interface/owner.model";
 import { ErrorHandlerService } from "../../shared/error-handler.service";
 import { ActivatedRoute } from "@angular/router";
-import { Owner } from "../../_interface/owner.model";
 
 @Component({
   selector: "app-owner-update",

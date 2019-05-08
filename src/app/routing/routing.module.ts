@@ -5,7 +5,7 @@ import { HomeComponent } from "../home/home.component";
 import { NotFoundComponent } from "../error-pages/not-found/not-found.component";
 import { ServerErrorComponent } from "../error-pages/server-error/server-error.component";
 
-const routes: Routes = [
+const ownerRoutes: Routes = [
   { path: "home", component: HomeComponent },
   { path: "owner", loadChildren: "./../owner/owner.module#OwnerModule" },
   { path: "404", component: NotFoundComponent },
@@ -15,7 +15,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forRoot(routes)],
+  imports: [CommonModule, RouterModule.forRoot(ownerRoutes)],
   exports: [RouterModule],
   declarations: []
 })
