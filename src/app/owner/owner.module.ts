@@ -13,6 +13,7 @@ import { AccountDataComponent } from "./owner-details/account-data/account-data.
 import { OwnerCreateComponent } from "./owner-create/owner-create.component";
 import { SharedModule } from "../shared/shared.module";
 import { OwnerUpdateComponent } from './owner-update/owner-update.component';
+import { OwnerDeleteComponent } from './owner-delete/owner-delete.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { OwnerUpdateComponent } from './owner-update/owner-update.component';
     OwnerDataComponent,
     AccountDataComponent,
     OwnerCreateComponent,
-    OwnerUpdateComponent
+    OwnerUpdateComponent,
+    OwnerDeleteComponent
   ],
   imports: [CommonModule, OwnerRoutingModule, ReactiveFormsModule, SharedModule]
 })
